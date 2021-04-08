@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build docker image
-        run: docker build --no-cache . -t ColoringMicroservice:latest
+        run: docker build --no-cache . -t coloring_microservice:latest
       
       - name: Run docker container
-        run: docker container run --rm -v ./ColoringMicroservice:/ColoringMicroservice ColoringMicroservice
+        run: docker container run --rm -v ./ColoringMicroservice:/ColoringMicroservice coloring_microservice:latest
