@@ -15,5 +15,5 @@ class ProbaTestCase(TestCase):
         self.assertEqual(p.first_name, "Aleksa")
     
     # Add this if you want tests to fail
-    def test_person_fail(self):
-        self.assertEqual(False, True)
+    # def test_person_fail(self):
+    #     self.assertEqual(False, True)
