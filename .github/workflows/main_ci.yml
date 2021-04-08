@@ -29,6 +29,9 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         run: docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password=${{ secrets.DOCKERHUB_PASSWORD }}
       
+      - name: Tag the built image
+        run: docker tag coloring_microservice:latest ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice:latest
+
       - name: Push to Docker hub
         if: ${{ github.event_name == 'push' }}
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice:latest
