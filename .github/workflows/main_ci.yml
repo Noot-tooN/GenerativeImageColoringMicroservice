@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build docker image
-        run: docker build --no-cache . -t coloring_microservice:latest
+        run: docker build . -t coloring_microservice:latest
       
       - name: Run Django tests
         run: docker container run --rm -v $PWD/ColoringMicroservice:/ColoringMicroservice -w /ColoringMicroservice coloring_microservice:latest
@@ -31,4 +31,4 @@ jobs:
       
       - name: Push to Docker hub
         if: ${{ github.event_name == 'push' }}
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice:latest
