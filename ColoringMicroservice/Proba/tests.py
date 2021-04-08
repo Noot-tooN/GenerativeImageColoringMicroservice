@@ -14,5 +14,6 @@ class ProbaTestCase(TestCase):
         p = Person.objects.get(last_name="Novcic")
         self.assertEqual(p.first_name, "Aleksa")
     
-    def test_person_fail(self):
-        self.assertEqual(False, True)
+    # Add this if you want tests to fail
+    # def test_person_fail(self):
+    #     self.assertEqual(False, True)
