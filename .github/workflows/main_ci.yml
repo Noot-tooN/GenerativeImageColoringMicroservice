@@ -28,9 +28,10 @@ jobs:
       - name: Check if Django server starts
         run: docker container run --rm -v $PWD/ColoringMicroservice:/ColoringMicroservice -w /ColoringMicroservice -e command="python manage.py runserver 0.0.0.0" coloring_microservice:latest
 
-      if: ${{ github.event_name == 'push' }}
       - name: Log in to Docker Hub
+        if: ${{ github.event_name == 'push' }}
         run: docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password=${{ secrets.DOCKERHUB_PASSWORD }}
       
       - name: Push to Docker hub
+        if: ${{ github.event_name == 'push' }}
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice
