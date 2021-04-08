@@ -3,7 +3,7 @@
 
 FROM ubuntu:20.04
 
-ENV command "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+ENV command "python manage.py runserver 0.0.0.0:8000"
 
 ADD ./ColoringMicroservice /ColoringMicroservice
 
@@ -14,6 +14,7 @@ RUN apt-get install -y python-is-python3 python3-distutils curl && \
 RUN pip install Django==3.2
 
 WORKDIR /ColoringMicroservice
+RUN python manage.py makemigrations && python manage.py migrate
 # RUN apt-get install locales
 # RUN locale-gen en_US.UTF-8
 CMD ${command}
