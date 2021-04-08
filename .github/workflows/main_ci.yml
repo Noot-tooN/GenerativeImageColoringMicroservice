@@ -25,9 +25,6 @@ jobs:
       - name: Run Django tests
         run: docker container run --rm -v $PWD/ColoringMicroservice:/ColoringMicroservice -w /ColoringMicroservice coloring_microservice:latest
 
-      - name: Check if Django server starts
-        run: docker container run --rm -v $PWD/ColoringMicroservice:/ColoringMicroservice -w /ColoringMicroservice -e command="python manage.py runserver 0.0.0.0:5000" coloring_microservice:latest
-
       - name: Log in to Docker Hub
         if: ${{ github.event_name == 'push' }}
         run: docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password=${{ secrets.DOCKERHUB_PASSWORD }}
