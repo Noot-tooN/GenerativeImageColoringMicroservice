@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Basis Continuous Integration (CI)
+name: Basis Continuous Integration (CI) 1
 
 on:
   push:
