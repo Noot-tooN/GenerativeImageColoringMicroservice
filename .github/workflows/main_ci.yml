@@ -23,7 +23,7 @@ jobs:
         run: docker build . -t coloring_microservice:latest
       
       - name: Run Django tests
-        run: docker container run --rm -v $PWD/ColoringMicroservice:/ColoringMicroservice -w /ColoringMicroservice coloring_microservice:latest
+        run: docker container run --rm -w /ColoringMicroservice coloring_microservice:latest
 
       - name: Log in to Docker Hub
         if: ${{ github.event_name == 'push' }}

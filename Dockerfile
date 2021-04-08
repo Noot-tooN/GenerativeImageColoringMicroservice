@@ -5,6 +5,8 @@ FROM ubuntu:20.04
 
 ENV command "python manage.py test"
 
+ADD ./ColoringMicroservice /ColoringMicroservice
+
 RUN apt-get update
 # RUN apt-get install software-properties-common -y && \
 RUN apt-get install -y python-is-python3 python3-distutils curl && \
