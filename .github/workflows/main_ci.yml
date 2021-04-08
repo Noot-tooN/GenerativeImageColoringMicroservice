@@ -23,4 +23,4 @@ jobs:
         run: docker build --no-cache . -t coloring_microservice:latest
       
       - name: Run docker container
-        run: docker container run --rm -v ./ColoringMicroservice:/ColoringMicroservice coloring_microservice:latest
+        run: docker container run --rm -v $PWD/ColoringMicroservice:/ColoringMicroservice coloring_microservice:latest
