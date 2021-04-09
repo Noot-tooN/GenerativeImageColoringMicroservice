@@ -28,10 +28,10 @@ jobs:
       # Github made me use this ...
       - name: Stitch together broken models
         run: |
-        cat ./ColorizationApi/Models/0.gz.part* > ./ColorizationApi/Models/non_fastai_model.pt &&
-        cat ./ColorizationApi/Models/1.gz.part* > ./ColorizationApi/Models/fastai_model_20.pt &&
-        cat ./ColorizationApi/Models/2.gz.part* > ./ColorizationApi/Models/fastai_model_40.pt &&
-        cat ./ColorizationApi/Models/1.1.gz.part* > ./ColorizationApi/Models/res18_unet_20.pt &&
+        cat ./ColorizationApi/Models/0.gz.part* > ./ColorizationApi/Models/non_fastai_model.pt && \
+        cat ./ColorizationApi/Models/1.gz.part* > ./ColorizationApi/Models/fastai_model_20.pt && \
+        cat ./ColorizationApi/Models/2.gz.part* > ./ColorizationApi/Models/fastai_model_40.pt && \
+        cat ./ColorizationApi/Models/1.1.gz.part* > ./ColorizationApi/Models/res18_unet_20.pt && \
         cat ./ColorizationApi/Models/2.1.gz.part* > ./ColorizationApi/Models/res18_unet_40.pt
       
       - name: Run Django tests
