@@ -22,10 +22,7 @@ jobs:
       #     lfs: true
       # - name: Checkout LFS objects
       #   run: git lfs checkout
-        
-      # - name: Build docker image
-      #   run: docker build . -t coloring_microservice:latest
-      
+              
       # Github made me use this ...
       - name: Stitch together split non_fastai_model models
         run: cat $PWD/ColoringMicroservice/ColorizationApi/Models/0.gz.part* > $PWD/ColoringMicroservice/ColorizationApi/Models/non_fastai_model.pt
@@ -41,6 +38,9 @@ jobs:
 
       - name: Stitch together split res18_unet_40 models
         run: cat $PWD/ColoringMicroservice/ColorizationApi/Models/2.1.gz.part* > $PWD/ColoringMicroservice/ColorizationApi/Models/res18_unet_40.pt
+
+      - name: Build docker image
+        run: docker build . -t coloring_microservice:latest
 
       - name: Run Django tests
         run: docker container run --rm -e command="python manage.py test" coloring_microservice:latest
