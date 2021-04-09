@@ -3,9 +3,11 @@
 
 FROM ubuntu:20.04
 
-ENV command "python manage.py runserver 0.0.0.0:8000"
+ENV listening_port 8000
+ENV command "python manage.py runserver 0.0.0.0:${listening_port}"
 
 ADD ./ColoringMicroservice /ColoringMicroservice
+EXPOSE ${listening_port}
 
 RUN apt-get update
 # RUN apt-get install software-properties-common -y && \
