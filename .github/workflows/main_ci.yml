@@ -27,7 +27,7 @@ jobs:
       #   run: docker build . -t coloring_microservice:latest
       # Github made me use this ...
       - name: Stitch together split non_fastai_model models
-        run: cat ${{ GITHUB_WORKSPACE }}/ColorizationApi/Models/0.gz.part* > ${{ GITHUB_WORKSPACE }}/ColorizationApi/Models/non_fastai_model.pt
+        run: cat $GITHUB_WORKSPACE/ColorizationApi/Models/0.gz.part* > $GITHUB_WORKSPACE/ColorizationApi/Models/non_fastai_model.pt
 
       - name: Stitch together split fastai_model_20 models
         run: cat ./ColorizationApi/Models/1.gz.part* > ./ColorizationApi/Models/fastai_model_20.pt
