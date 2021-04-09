@@ -6,7 +6,7 @@ from skimage.color import rgb2lab, lab2rgb
 
 SIZE = 256
 class ColorizationDataset(Dataset):
-    def __init__(self, paths, split='val'):
+    def __init__(self, paths=None, images=None, split='val'):
         if split == 'train':
             self.transforms = transforms.Compose([
                 transforms.Resize((SIZE, SIZE),  Image.BICUBIC),
@@ -17,10 +17,17 @@ class ColorizationDataset(Dataset):
         
         self.split = split
         self.size = SIZE
+        self.images = images
         self.paths = paths
     
     def __getitem__(self, idx):
-        img = Image.open(self.paths[idx]).convert("RGB")
+        if self.paths is not None:
+            img = Image.open(self.paths[idx]).convert("RGB")
+        else:
+            img = self.images[idx]
+            img = Image.fromarray(img.astype("uint8"), "RGB")
+            # img = self.images[idx].convert("RGB")
+            
         img = self.transforms(img)
         img = np.array(img)
         img_lab = rgb2lab(img).astype("float32") # Converting RGB to L*a*b
@@ -31,7 +38,10 @@ class ColorizationDataset(Dataset):
         return {'L': L, 'ab': ab}
     
     def __len__(self):
-        return len(self.paths)
+        if self.paths is None:
+            return len(self.images)
+        else:
+            return len(self.paths)
 
 def make_dataloaders(batch_size=16, n_workers=4, pin_memory=True, **kwargs): # A handy function to make our dataloaders
     dataset = ColorizationDataset(**kwargs)

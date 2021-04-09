@@ -27,8 +27,12 @@ def build_res_unet(n_input=1, n_output=2, size=256, device=None):
     net_G = DynamicUnet(body, n_output, (size, size)).to(device)
     return net_G
 
-def color_image(paths, colorization_model):
-    dataloader = make_dataloaders(paths=paths)
+def color_image(colorization_model, paths=None, images=None):
+    if paths is None:
+        dataloader = make_dataloaders(images=images, paths=None)
+    else:
+        dataloader = make_dataloaders(paths=paths, images=None)
+
     data = next(iter(dataloader))
 
     colorization_model.model.net_G.eval()

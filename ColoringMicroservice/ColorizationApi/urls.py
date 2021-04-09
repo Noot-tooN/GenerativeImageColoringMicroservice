@@ -2,5 +2,5 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', default_view)
+    path('', my_view.as_view(), name="Default endpoint")
 ]
