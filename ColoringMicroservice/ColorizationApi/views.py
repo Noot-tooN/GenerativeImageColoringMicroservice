@@ -15,10 +15,11 @@ def bytes_to_ndarray(bytes):
 
 class my_view(APIView):
     def post(self, request):
+        permission_level = request.POST.get("permission_level", "")
         if "black-white-photo" in request.FILES:
             bw_image = request.FILES["black-white-photo"]
             bw_image = bytes_to_ndarray(bw_image.read())
-            c_model = model_manager().get_model(permission_level=2)
+            c_model = model_manager().get_model(permission_level=permission_level)
             colored_image = color_image(colorization_model=c_model, images=[bw_image])
             # it is mapped to 0 and 1, so multiply by 255 to get range from 0 to 255, because PIL needs that range
             colored_image *= 255
