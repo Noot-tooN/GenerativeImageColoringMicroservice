@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ProbaConfig(AppConfig):
+class ColorizationapiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Proba'
+    name = 'ColorizationApi'
