@@ -52,6 +52,9 @@ jobs:
       - name: Tag the built image
         run: docker tag coloring_microservice:latest ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice:latest
 
+      - name: Remove the split parts
+        run: find . -type f ! -name '$PWD/ColoringMicroservice/ColorizationApi/Models/*.pt' -delete
+
       - name: Push to Docker hub
         if: ${{ github.event_name == 'push' }}
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice:latest
