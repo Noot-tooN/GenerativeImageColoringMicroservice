@@ -40,7 +40,7 @@ jobs:
         run: cat $PWD/ColoringMicroservice/ColorizationApi/Models/2.1.gz.part* > $PWD/ColoringMicroservice/ColorizationApi/Models/res18_unet_40.pt
 
       - name: Remove the split parts
-        run: find . -type f ! -name '$PWD/ColoringMicroservice/ColorizationApi/Models/*.pt' -delete
+        run: rm -rf $(ls -I "*.pt" $PWD/ColoringMicroservice/ColorizationApi/Models/)
 
       - name: Build docker image
         run: docker build . -t coloring_microservice:latest
