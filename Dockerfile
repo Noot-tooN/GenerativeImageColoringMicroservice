@@ -14,6 +14,7 @@ RUN apt-get update
 RUN apt-get install -y python-is-python3 python3-distutils python3-dev gcc curl && \
     curl https://bootstrap.pypa.io/get-pip.py | python
 RUN pip install Django==3.2 torch==1.7.1 torchvision fastai==2.3.0 scikit-image
+RUN pip install djangorestframework
 
 WORKDIR /ColoringMicroservice
 RUN python manage.py makemigrations && python manage.py migrate
