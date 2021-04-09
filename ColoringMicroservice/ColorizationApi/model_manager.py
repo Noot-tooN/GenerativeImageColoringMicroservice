@@ -2,7 +2,6 @@ from ColorizationApi.singleton import Singleton
 from ColorizationApi.fastai_model_20 import fastai_model_20
 from ColorizationApi.fastai_model_40 import fastai_model_40
 from ColorizationApi.non_fastai_model import non_fastai_model
-from ColorizationApi.TrainedNetwork.preprocessing import make_dataloaders
 import torch
 
 class model_manager(metaclass=Singleton):
