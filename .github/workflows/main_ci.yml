@@ -18,6 +18,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       #   with:
       #     lfs: true
       # - name: Checkout LFS objects
@@ -49,12 +54,13 @@ jobs:
         run: docker container run --rm -e command="python manage.py test" coloring_microservice:latest
 
       - name: Log in to Docker Hub
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && steps.extract_branch.outputs.branch == 'main' }}
         run: docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password=${{ secrets.DOCKERHUB_PASSWORD }}
       
       - name: Tag the built image
+        if: ${{ github.event_name == 'push' && steps.extract_branch.outputs.branch == 'main' }}
         run: docker tag coloring_microservice:latest ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice:latest
 
       - name: Push to Docker hub
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && steps.extract_branch.outputs.branch == 'main' }}
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/coloring_microservice:latest
