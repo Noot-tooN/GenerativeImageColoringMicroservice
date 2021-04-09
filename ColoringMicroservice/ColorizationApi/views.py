@@ -16,6 +16,10 @@ def bytes_to_ndarray(bytes):
 class my_view(APIView):
     def post(self, request):
         permission_level = request.POST.get("permission_level", "")
+        try:
+            permission_level = int(permission_level)
+        except Exception as e:
+            permission_level = ""
         if "black-white-photo" in request.FILES:
             bw_image = request.FILES["black-white-photo"]
             bw_image = bytes_to_ndarray(bw_image.read())
