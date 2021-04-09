@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+    web:
+        image: reggiemiller31/coloring_microservice
+        ports:
+            - 80:8000
+        networks:
+            - mynet
+
+networks:
+    mynet:
