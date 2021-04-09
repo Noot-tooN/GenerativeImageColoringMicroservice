@@ -28,7 +28,7 @@ jobs:
       
       # Github made me use this ...
       - name: Create empty non_fastai_model
-        run: touch /home/runner/work/GenerativeImageColoringMicroservice/ColoringMicroservice/ColorizationApi/Models/non_fastai_model.pt
+        run: echo $PWD
 
       - name: Stitch together split non_fastai_model models
         run: cat /home/runner/work/GenerativeImageColoringMicroservice/ColoringMicroservice/ColorizationApi/Models/0.gz.part* > /home/runner/work/GenerativeImageColoringMicroservice/ColoringMicroservice/ColorizationApi/Models/non_fastai_model.pt
