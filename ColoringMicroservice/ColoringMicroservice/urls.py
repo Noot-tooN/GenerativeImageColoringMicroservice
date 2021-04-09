@@ -14,9 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from ColoringMicroservice.views import *
+from ColorizationApi.model_manager import model_manager
+
+init_manager = model_manager()
 
 urlpatterns = [
-    path('', my_view),
+    path('api/', include("ColorizationApi.urls")),
 ]
