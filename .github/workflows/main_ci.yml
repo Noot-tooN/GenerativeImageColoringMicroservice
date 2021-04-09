@@ -4,7 +4,7 @@ name: Basis Continuous Integration (CI)  1
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, development ]
   pull_request:
     branches: [ main, development ]
 # Allows you to run this workflow manually from the Actions tab
@@ -18,7 +18,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        with:
+          lfs: true
+      - name: Checkout LFS objects
+        run: git lfs checkout
+        
       - name: Build docker image
         run: docker build . -t coloring_microservice:latest
       
