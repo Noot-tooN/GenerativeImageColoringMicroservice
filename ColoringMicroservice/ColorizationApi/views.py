@@ -8,6 +8,9 @@ from ColorizationApi.TrainedNetwork.utility_functions import color_image
 from ColorizationApi.model_manager import model_manager
 import io
 
+from rest_framework.response import Response
+from rest_framework import status
+
 def bytes_to_ndarray(bytes):
     bytes_io = bytearray(bytes)
     img = Image.open(BytesIO(bytes_io))
@@ -32,5 +35,4 @@ class my_view(APIView):
             jpeg_colored_image.save(response, "JPEG")
             return response
         else:
-            print("No file :(")
-            return HttpResponse("<h1>Angery</h1>")
+            return Response({"error": "Picture wasnt found in POST request!"}, status=status.HTTP_400_BAD_REQUEST)

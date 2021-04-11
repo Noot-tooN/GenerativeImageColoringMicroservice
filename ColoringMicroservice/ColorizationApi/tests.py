@@ -6,8 +6,12 @@ import torch
 import matplotlib.pyplot as plt
 from ColorizationApi.TrainedNetwork.preprocessing import make_dataloaders
 
+from django.urls import reverse
+from rest_framework.test import APITestCase
+from rest_framework import status
+
 # Create your tests here.
-class ColorizationApiTestCase(TestCase):
+class ColorizationTestCase(TestCase):
     def setUp(self):
         self.model_manager = model_manager()
         self.dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -55,3 +59,20 @@ class ColorizationApiTestCase(TestCase):
         resulting_image3 = color_image(paths=[img_path], colorization_model=cur_model)
         self.assertEqual(torch.Size([256, 256, 3]), resulting_image3.shape)
         # plt.imsave(os.path.join(self.dir_path, "resulting_image.jpg"), resulting_image)
+
+class ColorizationApiTestCase(APITestCase):
+    def test_color_image(self):
+        def check_image(permission):
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            url = reverse("color_image")
+            f1 = open(os.path.join(dir_path, "sample_test_photo.jpg"), 'rb')
+            data = {'black-white-photo': f1, "permission_level": permission}
+            response = self.client.post(url, data=data)
+            self.assertEqual(response.status_code, 200)
+            f1.close()
+            with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'rb') as f2:
+                self.assertEqual(f2.read(), response.content)
+        
+        check_image(0)
+        check_image(1)
+        check_image(2)
