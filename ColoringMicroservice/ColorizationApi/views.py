@@ -8,6 +8,8 @@ from ColorizationApi.TrainedNetwork.utility_functions import color_image
 from ColorizationApi.model_manager import model_manager
 import io
 
+from hashlib import sha1
+
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -28,9 +30,12 @@ class my_view(APIView):
             bw_image = bytes_to_ndarray(bw_image.read())
             c_model = model_manager().get_model(permission_level=permission_level)
             colored_image = color_image(colorization_model=c_model, images=[bw_image])
+            print("Hashed sum: {}".format(sha1(colored_image).hexdigest()))
             # it is mapped to 0 and 1, so multiply by 255 to get range from 0 to 255, because PIL needs that range
             colored_image *= 255
             jpeg_colored_image = Image.fromarray(colored_image.astype('uint8'), "RGB")
+
+            # print(len(jpeg_colored_image.getvalue()))
             response = HttpResponse(content_type="image/jpeg")
             jpeg_colored_image.save(response, "JPEG")
             return response
