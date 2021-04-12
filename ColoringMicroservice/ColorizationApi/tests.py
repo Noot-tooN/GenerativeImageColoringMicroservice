@@ -93,4 +93,4 @@ class ColorizationApiTestCase(APITestCase):
         save_image(1)
         check_image(1)
         save_image(2)
-        check_image(2)
+        check_image(2) #
