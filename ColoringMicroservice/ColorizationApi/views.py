@@ -28,6 +28,7 @@ class my_view(APIView):
         if "black-white-photo" in request.FILES:
             bw_image = request.FILES["black-white-photo"]
             bw_image = bytes_to_ndarray(bw_image.read())
+            print("Hashed sum of black-white-photo: {}".format(sha1(bw_image).hexdigest()))
             c_model = model_manager().get_model(permission_level=permission_level)
             colored_image = color_image(colorization_model=c_model, images=[bw_image])
             print("Hashed sum: {}".format(sha1(colored_image).hexdigest()))
