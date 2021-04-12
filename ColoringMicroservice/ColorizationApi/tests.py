@@ -75,7 +75,10 @@ class ColorizationApiTestCase(APITestCase):
             # with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'wb') as f2:
             #     f2.write(response.content)
             with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'rb') as f2:
-                self.assertEqual(f2.read(), response.content)
+                bajts = f2.read()
+                print("Saved image length: {}".format(len(bajts)))
+                print("Reponse.content length: {}".format(len(response.content)))
+                self.assertEqual(bajts, response.content)
         
         check_image(0)
         check_image(1)
