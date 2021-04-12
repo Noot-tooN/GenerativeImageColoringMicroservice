@@ -61,7 +61,18 @@ class ColorizationTestCase(TestCase):
         # plt.imsave(os.path.join(self.dir_path, "resulting_image.jpg"), resulting_image)
 
 class ColorizationApiTestCase(APITestCase):
-    def test_color_image(self):
+    def test_image_coloring_consistency(self):
+        def save_image(permission):
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            url = reverse("color_image")
+            f1 = open(os.path.join(dir_path, "sample_test_photo.jpg"), 'rb')
+            data = {'black-white-photo': f1, "permission_level": permission}
+            response = self.client.post(url, data=data)
+            self.assertEqual(response.status_code, 200)
+            f1.close()
+            with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'wb') as f2:
+                f2.write(response.content)
+
         def check_image(permission):
             dir_path = os.path.dirname(os.path.realpath(__file__))
             url = reverse("color_image")
@@ -75,11 +86,11 @@ class ColorizationApiTestCase(APITestCase):
             # with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'wb') as f2:
             #     f2.write(response.content)
             with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'rb') as f2:
-                bajts = f2.read()
-                print("Saved image length: {}".format(len(bajts)))
-                print("Reponse.content length: {}".format(len(response.content)))
-                self.assertEqual(bajts, response.content)
+                self.assertEqual(f2.read(), response.content)
         
+        save_image(0)
         check_image(0)
+        save_image(1)
         check_image(1)
+        save_image(2)
         check_image(2)

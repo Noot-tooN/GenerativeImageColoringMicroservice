@@ -13,8 +13,8 @@ from hashlib import sha1
 from rest_framework.response import Response
 from rest_framework import status
 
-def bytes_to_ndarray(bytes):
-    bytes_io = bytearray(bytes)
+def bytes_to_ndarray(my_bytes):
+    bytes_io = bytearray(my_bytes)
     img = Image.open(BytesIO(bytes_io))
     return np.array(img)
 
@@ -28,15 +28,11 @@ class my_view(APIView):
         if "black-white-photo" in request.FILES:
             bw_image = request.FILES["black-white-photo"]
             bw_image = bytes_to_ndarray(bw_image.read())
-            print("Hashed sum of black-white-photo: {}".format(sha1(bw_image).hexdigest()))
             c_model = model_manager().get_model(permission_level=permission_level)
             colored_image = color_image(colorization_model=c_model, images=[bw_image])
-            print("Hashed sum: {}".format(sha1(colored_image).hexdigest()))
             # it is mapped to 0 and 1, so multiply by 255 to get range from 0 to 255, because PIL needs that range
             colored_image *= 255
             jpeg_colored_image = Image.fromarray(colored_image.astype('uint8'), "RGB")
-
-            # print(len(jpeg_colored_image.getvalue()))
             response = HttpResponse(content_type="image/jpeg")
             jpeg_colored_image.save(response, "JPEG")
             return response
