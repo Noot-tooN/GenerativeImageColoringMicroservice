@@ -83,6 +83,7 @@ class ColorizationApiTestCase(APITestCase):
             f1.close()
             # Saved images have different bytes depending if they were saved using docker or non docker env
             # So tests will fail if you dont use docker env
+            #
             # with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'wb') as f2:
             #     f2.write(response.content)
             with open(os.path.join(dir_path, "received_perm_{}.jpg".format(permission)), 'rb') as f2:
