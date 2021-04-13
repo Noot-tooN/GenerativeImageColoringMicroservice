@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-i+#%e@9s7_mvhniyfcbnf3x6#k%a7sx)5mpkm@+4$@&v%i49bb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Allow all hosts here, BUT make ufw that allows only specific ip addresses
+# sudo ufw allow from 185.27.128.249 to any port 8080
 ALLOWED_HOSTS = ["*"]
 
 

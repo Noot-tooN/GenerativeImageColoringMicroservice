@@ -25,8 +25,10 @@ class ColorizationDataset(Dataset):
             img = Image.open(self.paths[idx]).convert("RGB")
         else:
             img = self.images[idx]
-            img = Image.fromarray(img.astype("uint8"), "RGB")
-            # img = self.images[idx].convert("RGB")
+            try:
+                img = Image.fromarray(img.astype("uint8"), "RGB")
+            except Exception as e:
+                img = Image.fromarray(img.astype("uint8"), "L").convert("RGB")
             
         img = self.transforms(img)
         img = np.array(img)

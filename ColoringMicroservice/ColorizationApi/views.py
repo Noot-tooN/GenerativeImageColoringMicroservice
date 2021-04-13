@@ -18,7 +18,7 @@ def bytes_to_ndarray(my_bytes):
     img = Image.open(BytesIO(bytes_io))
     return np.array(img)
 
-class my_view(APIView):
+class color_image_view(APIView):
     def post(self, request):
         permission_level = request.POST.get("permission_level", "")
         try:

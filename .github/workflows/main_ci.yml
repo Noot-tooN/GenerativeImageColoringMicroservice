@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Basis Continuous Integration (CI)  1
+name: Basis Continuous Integration (CI)
 
 on:
   push:
@@ -12,7 +10,7 @@ on:
   
 jobs:
   test-and-publish:
-    name: Run unit tests
+    name: Main CI/CD flow
     runs-on: ubuntu-20.04
     
     steps:
