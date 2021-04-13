@@ -81,6 +81,7 @@ class ColorizationApiTestCase(APITestCase):
             response = self.client.post(url, data=data)
             self.assertEqual(response.status_code, 200)
             f1.close()
+            #
             # Saved images have different bytes depending if they were saved using docker or non docker env
             # So tests will fail if you dont use docker env
             #
